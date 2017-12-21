@@ -59,6 +59,11 @@ $config = [
         */
     ],
     'params' => $params,
+    'modules' => [
+        'wechat' => [
+            'class' => app\modules\wechat\wechat::class,
+        ],
+    ],
 ];
 
 if (YII_ENV_DEV) {
