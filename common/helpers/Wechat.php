@@ -15,7 +15,7 @@ class Wechat{
      */
     public static function Auth(){
         $request = Yii::$app->request->get();
-        $timestamp = $request['$timestamp'];
+        $timestamp = $request['timestamp'];
         $nonce = $request['nonce'];
         $signature = $request['signature'];
         $tmpArr = [Yii::$app->params['wechat_token'], $timestamp, $nonce];
