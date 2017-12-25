@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\SiteConfig;
+use app\models_ext\SiteConfigExt;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -122,5 +124,19 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionPass(){
+        $config = [
+            'appId' => 'wx8692d40dc545db7b',
+            'appsecret' => '814dbdec27aa9f398d249f6df74b80d7',
+            'wechat_token' => 'danson'
+        ];
+        $config_value = json_encode($config);
+        $model = new SiteConfigExt();
+        $model->config_name = 'wechat';
+        $model->config_value = $config_value;
+        $status = $model->save(false);
+        var_dump($status);
     }
 }
