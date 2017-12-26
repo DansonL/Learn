@@ -11,6 +11,7 @@ use app\models_ext\SiteConfigExt;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\StringHelper;
+use yii\web\Response;
 
 class Wechat{
 
@@ -119,5 +120,26 @@ class Wechat{
         curl_close($ch);
         return $tmpInfo;
 
+    }
+
+    public function xml(){
+        return \Yii::createObject([
+            'class' => 'yii\web\Response',
+            'format' => Response::FORMAT_XML,
+            'formatters' => [
+                Response::FORMAT_XML => [
+                    'class' => 'yii\web\XmlResponseFormatter',
+                    'rootTag' => false, //根节点
+                    'itemTag' => 'url', //单元
+                    'useObjectTags' => false
+                ],
+            ],
+            'data' => [ //要输出的数据
+                [
+                    'loc' => 'http://********',
+                    'loc' => 'http://********',
+                ],
+            ],
+        ]);
     }
 }
