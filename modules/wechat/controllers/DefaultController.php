@@ -58,6 +58,5 @@ class DefaultController extends Controller
      * 处理消息
      */
     public function actionMessage(){
-        echo '';
     }
 }
