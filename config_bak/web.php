@@ -16,6 +16,8 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'GET wechat' => 'wechat/default/auth',
+                'POST wechat' => 'wechat/default/message'
             ],
         ],
         'request' => [
