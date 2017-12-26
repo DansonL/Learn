@@ -50,5 +50,6 @@ class DefaultController extends Controller
      */
     public function actionAuth(){
         Wechat::Auth();
+        echo ' ';
     }
 }
