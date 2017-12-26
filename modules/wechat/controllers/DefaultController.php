@@ -16,6 +16,8 @@ class DefaultController extends Controller
      * Renders the index view for the module
      * @return string
      */
+    public $enableCsrfValidation = false;
+
     public function actionIndex()
     {
         echo '';
@@ -56,6 +58,6 @@ class DefaultController extends Controller
      * 处理消息
      */
     public function actionMessage(){
-
+        echo '';
     }
 }
