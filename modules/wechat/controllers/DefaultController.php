@@ -18,9 +18,7 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        Yii::trace('startleojacks');
-       // echo 'startleojack';
-        return $this->render('index');
+        echo '';
     }
 
     public function actionPay(){

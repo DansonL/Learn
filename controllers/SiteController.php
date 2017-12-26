@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\models\SiteConfig;
 use app\models_ext\SiteConfigExt;
 use Yii;
 use yii\filters\AccessControl;
@@ -11,6 +10,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\common\helpers\Wechat;
 
 class SiteController extends Controller
 {
@@ -138,5 +138,46 @@ class SiteController extends Controller
         $model->config_value = $config_value;
         $status = $model->save(false);
         var_dump($status);
+    }
+
+    public function actionAccess(){
+
+    }
+
+    public function actionSetMenu(){
+        $menu = array(
+            'button' => array(
+                [
+                    'type' => 'click',
+                    'name' => '测试测试',
+                    'key' => 'RETEST_TEST'
+                ],
+                [
+                    'type' => 'location_select',
+                    'name' => '发送位置',
+                    'key' => 'MAP_MAP'
+                ],
+                [
+                    'name' => '菜单',
+                    'sub_button' => [
+                        [
+                            'type' => 'view',
+                            'name' => '搜索',
+                            'url' => 'https://www.baidu.com'
+                        ],
+                        [
+                            'type' => 'click',
+                            'name' => '赞我们一下',
+                            'key' => 'LIKE_US'
+                        ]
+                    ]
+                ]
+            )
+        );
+        $status = Wechat::setMenu($menu);
+        var_dump($status);exit;
+
+
+
     }
 }
