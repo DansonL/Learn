@@ -21,6 +21,16 @@ class Wechat{
 
     //private static $secret;
 
+    //消息模板
+    private $_msg_template = array(
+        'text' => '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[%s]]></Content></xml>',//文本回复XML模板
+        'image' => '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[image]]></MsgType><Image><MediaId><![CDATA[%s]]></MediaId></Image></xml>',//图片回复XML模板
+        'music' => '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[music]]></MsgType><Music><Title><![CDATA[%s]]></Title><Description><![CDATA[%s]]></Description><MusicUrl><![CDATA[%s]]></MusicUrl><HQMusicUrl><![CDATA[%s]]></HQMusicUrl><ThumbMediaId><![CDATA[%s]]></ThumbMediaId></Music></xml>',//音乐模板
+        'news' => '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[news]]></MsgType><ArticleCount>%s</ArticleCount><Articles>%s</Articles></xml>',// 新闻主体
+        'news_item' => '<item><Title><![CDATA[%s]]></Title><Description><![CDATA[%s]]></Description><PicUrl><![CDATA[%s]]></PicUrl><Url><![CDATA[%s]]></Url></item>',//某个新闻模板
+    );
+
+
     public function __construct()
     {
 
@@ -122,31 +132,11 @@ class Wechat{
 
     }
 
-    public function xml(){
-        return \Yii::createObject([
-            'class' => 'yii\web\Response',
-            'format' => Response::FORMAT_XML,
-            'formatters' => [
-                Response::FORMAT_XML => [
-                    'class' => 'yii\web\XmlResponseFormatter',
-                    'rootTag' => false, //根节点
-                    'itemTag' => 'xml', //单元
-                    'useObjectTags' => false
-                ],
-            ],
-            'data' => [ //要输出的数据
-                [
-                    'ToUserName' => 'http://********',
-                    'FromUserName' => 'http://********',
-                    'CreateTime' => 'http://********',
-                    'MsgType' => 'http://********',
-                    'MsgType' => 'http://********',
-                    'FromUserName' => 'http://********',
-                    'FromUserName' => 'http://********',
+    public function _msgText($to, $from, $content) {
 
-                ],
-            ],
-        ]);
+        $res = sprintf($this->_msg_template['text'], $to, $from, time(), $content);
+        var_dump($this->_msg_template);
+        exit($res);
     }
 
 }
