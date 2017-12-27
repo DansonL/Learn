@@ -43,8 +43,8 @@ class DefaultController extends Controller
         libxml_disable_entity_loader(true);
         //禁止xml实体解析，防止xml注入
         $request_xml = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
-        $wechat = new Wechat();
-        $wechat->_msgText($request_xml->FromUserName, $request_xml->ToUserName, 'hello');
+
+
 
 
 
@@ -60,6 +60,9 @@ class DefaultController extends Controller
      * @return bool
      */
     public function actionAuth(){
+        if (count($_GET) == 0){
+            exit('test');
+        }
         Wechat::Auth();
     }
 
@@ -79,7 +82,7 @@ class DefaultController extends Controller
         //判断该消息的类型，通过元素MsgType
 
         $wechat = new Wechat();
-        $wechat->_msgText($request_xml->FromUserName, $request_xml->ToUserName, 'hello');
+       // $wechat->_msgText($request_xml->FromUserName, $request_xml->ToUserName, 'hello');
 
     }
 }
