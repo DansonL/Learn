@@ -80,6 +80,6 @@ class DefaultController extends Controller
 
         $wechat = new Wechat();
         $wechat->_msgText($request_xml->FromUserName, $request_xml->ToUserName, 'hello');
-        
+
     }
 }
