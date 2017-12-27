@@ -128,9 +128,6 @@ class SiteController extends Controller
 
     public function actionPass(){
         $config = [
-            'appId' => 'wx8692d40dc545db7b',
-            'appsecret' => '814dbdec27aa9f398d249f6df74b80d7',
-            'wechat_token' => 'danson'
         ];
         $config_value = json_encode($config);
         $model = new SiteConfigExt();

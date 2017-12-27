@@ -31,3 +31,6 @@ tests/_support/_generated
 
 #config file
 config/
+
+#composer
+composer.lock

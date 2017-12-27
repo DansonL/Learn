@@ -130,16 +130,23 @@ class Wechat{
                 Response::FORMAT_XML => [
                     'class' => 'yii\web\XmlResponseFormatter',
                     'rootTag' => false, //根节点
-                    'itemTag' => 'url', //单元
+                    'itemTag' => 'xml', //单元
                     'useObjectTags' => false
                 ],
             ],
             'data' => [ //要输出的数据
                 [
-                    'loc' => 'http://********',
-                    'loc' => 'http://********',
+                    'ToUserName' => 'http://********',
+                    'FromUserName' => 'http://********',
+                    'CreateTime' => 'http://********',
+                    'MsgType' => 'http://********',
+                    'MsgType' => 'http://********',
+                    'FromUserName' => 'http://********',
+                    'FromUserName' => 'http://********',
+
                 ],
             ],
         ]);
     }
+
 }
