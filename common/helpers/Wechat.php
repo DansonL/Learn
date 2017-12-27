@@ -134,8 +134,7 @@ class Wechat{
 
     public function _msgText($to, $from, $content) {
         $res = sprintf($this->_msg_template['text'], $to, $from, time(), $content);
-        Yii::trace($res);
-        die($res);
+        exit($res);
     }
 
 }

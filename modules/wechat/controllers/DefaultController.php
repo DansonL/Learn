@@ -79,7 +79,7 @@ class DefaultController extends Controller
         //判断该消息的类型，通过元素MsgType
 
         $wechat = new Wechat();
-        $wechat->_msgText($request_xml->from, $request_xml->to, 'hello');
+        $wechat->_msgText($request_xml->FromUserName, $request_xml->ToUserName, 'hello');
 
 
     }
