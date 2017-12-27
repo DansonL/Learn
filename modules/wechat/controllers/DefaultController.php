@@ -28,7 +28,8 @@ class DefaultController extends Controller
     }
 
     public function actionTest(){
-
+        $status = Yii::$app->redis->set('var1', 'asd');
+        var_dump($status);exit;
         $wechat = new Wechat();
         return $wechat->xml();
     }
