@@ -135,7 +135,6 @@ class Wechat{
     public function _msgText($to, $from, $content) {
 
         $res = sprintf($this->_msg_template['text'], $to, $from, time(), $content);
-        var_dump($this->_msg_template);
         exit($res);
     }
 
