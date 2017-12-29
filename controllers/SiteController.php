@@ -142,6 +142,9 @@ class SiteController extends Controller
     }
 
     public function actionSetMenu(){
+
+        $base_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect';
+        $userinfo_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect';
         $menu = array(
             'button' => array(
                 [
@@ -166,6 +169,16 @@ class SiteController extends Controller
                             'type' => 'click',
                             'name' => '赞我们一下',
                             'key' => 'LIKE_US'
+                        ],
+                        [
+                            'type' => 'view',
+                            'name' => '测试snsapi_base授权',
+                            'url' => $base_url
+                        ],
+                        [
+                            'type' => 'view',
+                            'name' => '测试snsapi_userinfo授权',
+                            'url' => $userinfo_url
                         ]
                     ]
                 ]

@@ -75,6 +75,12 @@ class DefaultController extends Controller
 
         $wechat = new Wechat();
        // $wechat->_msgText($request_xml->FromUserName, $request_xml->ToUserName, 'hello');
+    }
 
+    /**
+     * 获取用户授权并且其基本资料
+     */
+    public function actionInfo($code = 0, $state = 0){
+        echo $code;
     }
 }
