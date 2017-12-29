@@ -163,4 +163,8 @@ class Wechat{
                 break;
         }
     }
+
+    public static function getUserInfo($openId){
+        return file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token=' . Wechat::getAccessToken() . '&openid=' . $openId . '&lang=zh_CN');
+    }
 }

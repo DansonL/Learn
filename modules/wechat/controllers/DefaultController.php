@@ -20,19 +20,19 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
-        echo '';
+
+        return $this->render('index');
     }
 
     public function actionPay(){
-        echo 'this is a test';
+        $openid = 'o8JwBw5OSKLLiI3gz9TPyrJHnZH4';
+        $usrInfo = Wechat::getUserInfo($openid);
+        Yii::trace($usrInfo);
+        echo 'done';
     }
 
     public function actionTest(){
-
-
-
         //Yii::trace(serialize($request_xml));
-
         $xml = '<xml><ToUserName><![CDATA[gh_c42b6c39c7d5]]></ToUserName>
                 <FromUserName><![CDATA[o8JwBw5OSKLLiI3gz9TPyrJHnZH4]]></FromUserName>
                 <CreateTime>1514359848</CreateTime>
@@ -43,14 +43,6 @@ class DefaultController extends Controller
         libxml_disable_entity_loader(true);
         //禁止xml实体解析，防止xml注入
         $request_xml = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
-
-
-
-
-
-
-
-
         $wechat = new Wechat();
         return $wechat->xml();
     }

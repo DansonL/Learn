@@ -12,6 +12,13 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                  '@app/views' => '@vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app'
+                ],
+            ]
+        ],
         'redis' => [
             'class' => 'yii\redis\Connection',
             'hostname' => 'localhost',
@@ -70,6 +77,9 @@ $config = [
     'modules' => [
         'wechat' => [
             'class' => app\modules\wechat\wechat::class,
+        ],
+        'admin' => [
+            'class' => 'app\modules\admin\admin',
         ],
     ],
 ];
