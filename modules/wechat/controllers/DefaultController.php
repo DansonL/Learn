@@ -83,6 +83,7 @@ class DefaultController extends Controller
      */
     public function actionAuthResponse($code = 0, $state = 'fail'){
         if ($state == 'fail') return false;
+        echo 'SUCCESS';
         $app = Wechat::getAccessByCode($code);
         if (!$app) return false;
         $info = Wechat::getUserInfoByAccessToken($app->access_token, $app->openid);
