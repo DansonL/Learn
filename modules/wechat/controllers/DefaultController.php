@@ -85,6 +85,7 @@ class DefaultController extends Controller
         if ($state == 'fail') return false;
         if (Yii::$app->redis->get($code) === false){
             $app = Wechat::getAccessByCode($code);
+            Yii::trace($app);
             if (!$app) return false;
             $info = Wechat::getUserInfoByAccessToken($app->access_token, $app->openid);
             Yii::trace($info);
