@@ -169,7 +169,7 @@ class Wechat{
      * @param $openId
      * @return string
      */
-    public static function getUserInfo($openId){
+    public static function getUserInfoByOpenId($openId){
         return file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token=' . Wechat::getAccessToken() . '&openid=' . $openId . '&lang=zh_CN');
     }
 
@@ -183,5 +183,58 @@ class Wechat{
         $userinfo_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $wechatConf->appId . '&redirect_uri=' . $redirectUrl . '&response_type=code&scope=snsapi_userinfo&state=snsapi_userinfo#wechat_redirect';
         $url = $scope == 1 ? $base_url : $userinfo_url;
         return $url;
+    }
+
+    /**
+     * 根据code获得openid和accessToken
+     * @return bool|mixed
+     */
+    public static function getAccessByCode($code){
+        $wechatConf = SiteConfigExt::findOne(['config_name' => 'wechat'])->ConfVal;
+        $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $wechatConf->appId . '&secret=' . $wechatConf->appsecret . '&code=' . $code . '&grant_type=authorization_code';
+        $json = file_get_contents($url);
+        Yii::trace($json);
+        $app = json_decode($json);
+        if (isset($app->errcode)) return false;
+        return $app;
+    }
+
+    /**
+     * 根据授权accessToken和openId拉取用户信息
+     * 需scope为 snsapi_userinfo
+     * @param $accessToken
+     * @param $openId
+     * @return mixed
+     */
+    public static function getUserInfoByAccessToken($accessToken, $openId){
+        $json = file_get_contents('https://api.weixin.qq.com/sns/userinfo?access_token=' . $accessToken . '&openid=' . $openId . '&lang=zh_CN');
+        Yii::trace($json);
+        return json_decode($json);
+    }
+
+    /**
+     * 根据refreshToken刷新Token
+     * @param $refresh
+     * @return bool|mixed
+     */
+    public static function refreshAccessToken($refresh){
+        $appid = SiteConfigExt::findOne(['config_name' => 'wechat'])->conf_val->appId;
+        $url = 'https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=' . $appid . '&grant_type=refresh_token&refresh_token=' . $refresh;
+        $token = json_decode(file_get_contents($url));
+        if (isset($token->errcode)) return false;
+        return $token;
+    }
+
+    /**
+     * 根据AccessToken和OpenId判断 AccessToken是否可用
+     * @param $accessToken
+     * @param $openId
+     * @return bool|mixed
+     */
+    public static function checkAccessToken($accessToken, $openId){
+        $url = 'https://api.weixin.qq.com/sns/auth?access_token=' . $accessToken . '&openid=' . $openId;
+        $res = json_decode(file_get_contents($url));
+        if ($res->errcode == 0) return true;
+        return false;
     }
 }

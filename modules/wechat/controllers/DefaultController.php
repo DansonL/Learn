@@ -83,20 +83,19 @@ class DefaultController extends Controller
      */
     public function actionAuthResponse($code = 0, $state = 'fail'){
         if ($state == 'fail') return false;
-        $wechatConf = SiteConfigExt::findOne(['config_name' => 'wechat'])->ConfVal;
-        $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $wechatConf->appId . '&secret=' . $wechatConf->appsecret . '&code=' . $code . '&grant_type=authorization_code';
-        $json = file_get_contents($url);
-        Yii::trace($json);
-        $app = json_decode($json);
-        if (isset($app->errcode)) return false;
-        $info = $this->_getUserInfo($app->access_token, $app->openid);
+        $app = Wechat::getAccessByCode($code);
+        if (!$app) return false;
+        $info = Wechat::getUserInfoByAccessToken($app->access_token, $app->openid);
         echo '名称：' . $info->nickname . '<\br>' . '性别' . $info->sex == 1 ? '男' : '女';
-
     }
 
-    private function _getUserInfo($accessToken, $openId){
-        $json = file_get_contents('https://api.weixin.qq.com/sns/userinfo?access_token=' . $accessToken . '&openid=' . $openId . '&lang=zh_CN');
-        Yii::trace($json);
-        return json_decode($json);
+    public function actionTestCount(){
+        $redis = Yii::$app->redis;
+        if ($redis->get('count-test') !== false){
+            $redis->incr('count-test');
+        }else{
+            $redis->set('count-test', 0);
+        }
+        var_dump($redis->get('count-test'));
     }
 }

@@ -181,6 +181,11 @@ class SiteController extends Controller
                             'type' => 'view',
                             'name' => '测试snsapi_userinfo授权',
                             'url' => $userinfo_url
+                        ],
+                        [
+                            'type' => 'view',
+                            'name' => '测试主页访问次数',
+                            'url' => 'http://wechat.ldc0752.top/wechat/default/test-count',
                         ]
                     ]
                 ]
