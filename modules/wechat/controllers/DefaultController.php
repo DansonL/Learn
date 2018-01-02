@@ -90,6 +90,7 @@ class DefaultController extends Controller
         $app = json_decode($json);
         if (isset($app->errcode)) return false;
         $info = $this->_getUserInfo($app->access_token, $app->openid);
+        echo '名称：' . $info->nickname . '<\br>' . '性别' . $info->sex == 1 ? '男' : '女';
 
     }
 
