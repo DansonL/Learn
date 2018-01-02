@@ -86,6 +86,7 @@ class DefaultController extends Controller
         $app = Wechat::getAccessByCode($code);
         if (!$app) return false;
         $info = Wechat::getUserInfoByAccessToken($app->access_token, $app->openid);
+        var_dump($info);
         echo '名称：' . $info->nickname . '<\br>' . '性别' . $info->sex == 1 ? '男' : '女';
     }
 
