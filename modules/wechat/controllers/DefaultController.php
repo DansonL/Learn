@@ -93,7 +93,7 @@ class DefaultController extends Controller
         }
         $info = json_decode($info);
         var_dump($info);
-        echo '名称：' . $info->nickname . '<\br>' . '性别' . $info->sex == 1 ? '男' : '女';
+        //echo '名称：' . $info->nickname . '<\br>' . '性别' . $info->sex == 1 ? '男' : '女';
     }
 
     public function actionTestCount(){
