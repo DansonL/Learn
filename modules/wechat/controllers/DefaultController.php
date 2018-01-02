@@ -21,8 +21,11 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
-        var_dump(Yii::$app->redis->get('etetstsdsdf'));
-        exit;
+        $json = '{"openid":"o8JwBw5OSKLLiI3gz9TPyrJHnZH4","nickname":"Danson","sex":1,"language":"en","city":"惠州","province":"广东","country":"中国","headimgurl":"http:\/\/wx.qlogo.cn\/mmopen\/vi_32\/Q0j4TwGTfTLRkUBx9scO4UDwB1yEYA8PhbiaibicXPKHFaahE2kicUl4zcpG7Dq2MwOicPGzJct5ELYIBKoFXicwxsZA\/0","privilege":[]}';
+        $info = json_decode($json);
+        var_dump($info);exit;
+
+
 
         return $this->render('index');
     }
@@ -94,8 +97,11 @@ class DefaultController extends Controller
             $info = Yii::$app->redis->get($code);
         }
         $info = json_decode($info);
-        var_dump($info);
-        //echo '名称：' . $info->nickname . '<\br>' . '性别' . $info->sex == 1 ? '男' : '女';
+        echo '名称：' . $info->nickname . '<br \>' . '性别：' . ($info->sex == 1 ? '男' : '女') . '<br \>';
+        echo 'Id：' . $info->openid . '<br \>' . '语言：' . $info->language . '<br \>' ;
+        echo '城市：' . $info->city . '<br \>' . '省份：' . $info->province . '<br \>' ;
+        echo '国家：' . $info->country . '<br \>' . '头像地址：' . $info->headimgurl . '<br \>' ;
+        echo '授权信息：' . $info->privilege;
     }
 
     public function actionTestCount(){
