@@ -2,6 +2,7 @@
 
 namespace app\modules\wechat\controllers;
 
+use app\models_ext\SiteConfigExt;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
@@ -80,7 +81,12 @@ class DefaultController extends Controller
     /**
      * 获取用户授权并且其基本资料
      */
-    public function actionInfo($code = 0, $state = 0){
-        echo $code;
+    public function actionAuthResponse($code = 0, $state = 'fail'){
+        if ($state == 'fail') return false;
+        $wechatConf = SiteConfigExt::findOne(['config_name' => 'wechat'])->ConfVal;
+        $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $wechatConf->appId . '&secret=' . $wechatConf->appsecret . '&code=' . $code . '&grant_type=authorization_code';
+        $json = file_get_contents($url);
+        Yii::trace($json);
+
     }
 }

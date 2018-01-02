@@ -142,9 +142,11 @@ class SiteController extends Controller
     }
 
     public function actionSetMenu(){
+        $wechatConf = SiteConfigExt::findOne(['config_name' => 'wechat'])->ConfVal;
+        $redirectUrl = urlencode('http://wechat.ldc0752.top/wechat/default/auth-response');
+        $base_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $wechatConf->appId . '&redirect_uri=' . $redirectUrl . '&response_type=code&scope=snsapi_base&state=snsapi_base#wechat_redirect';
+        $userinfo_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $wechatConf->appId . '&redirect_uri=' . $redirectUrl . '&response_type=code&scope=snsapi_userinfo&state=snsapi_userinfo#wechat_redirect';
 
-        $base_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect';
-        $userinfo_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect';
         $menu = array(
             'button' => array(
                 [

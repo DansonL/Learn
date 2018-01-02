@@ -164,7 +164,24 @@ class Wechat{
         }
     }
 
+    /**
+     * 根据用户openId获取用户信息
+     * @param $openId
+     * @return string
+     */
     public static function getUserInfo($openId){
         return file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token=' . Wechat::getAccessToken() . '&openid=' . $openId . '&lang=zh_CN');
+    }
+
+    /**
+     * 获取用户code
+     */
+    public function getCode($scope = 1){
+        $wechatConf = SiteConfigExt::findOne(['config_name' => 'wechat'])->ConfVal;
+        $redirectUrl = urlencode('http://wechat.ldc0752.top/wechat/default/auth-response');
+        $base_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $wechatConf->appId . '&redirect_uri=' . $redirectUrl . '&response_type=code&scope=snsapi_base&state=snsapi_base#wechat_redirect';
+        $userinfo_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $wechatConf->appId . '&redirect_uri=' . $redirectUrl . '&response_type=code&scope=snsapi_userinfo&state=snsapi_userinfo#wechat_redirect';
+        $url = $scope == 1 ? $base_url : $userinfo_url;
+        return $url;
     }
 }
