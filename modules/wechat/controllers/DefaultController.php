@@ -91,6 +91,8 @@ class DefaultController extends Controller
         }else{
             $info = Yii::$app->redis->get($code);
         }
+        var_dump($info);
+        Yii::trace($info);
         $info = json_decode($info);
         var_dump($info);
         //echo '名称：' . $info->nickname . '<\br>' . '性别' . $info->sex == 1 ? '男' : '女';
