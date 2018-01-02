@@ -101,7 +101,7 @@ class DefaultController extends Controller
         echo 'Id：' . $info->openid . '<br \>' . '语言：' . $info->language . '<br \>' ;
         echo '城市：' . $info->city . '<br \>' . '省份：' . $info->province . '<br \>' ;
         echo '国家：' . $info->country . '<br \>' . '头像地址：' . $info->headimgurl . '<br \>' ;
-        echo '授权信息：' . $info->privilege;
+        echo '授权信息：' . json_encode($info->privilege);
     }
 
     public function actionTestCount(){
