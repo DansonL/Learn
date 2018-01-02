@@ -89,7 +89,7 @@ class DefaultController extends Controller
             $app = Wechat::getAccessByCode($code);
             if (!$app) return false;
             $info = Wechat::getUserInfoByAccessToken($app->access_token, $app->openid);
-            Yii::$app->redis->setex($code, 30000, $info);
+            Yii::$app->redis->setex($code, 30, $info);
         }else{
             $info = Yii::$app->redis->get($code);
         }
