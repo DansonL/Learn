@@ -83,10 +83,15 @@ class DefaultController extends Controller
      */
     public function actionAuthResponse($code = 0, $state = 'fail'){
         if ($state == 'fail') return false;
-        echo 'SUCCESS';
-        $app = Wechat::getAccessByCode($code);
-        if (!$app) return false;
-        $info = Wechat::getUserInfoByAccessToken($app->access_token, $app->openid);
+        if (Yii::$app->redis->get($code) === false){
+            $app = Wechat::getAccessByCode($code);
+            if (!$app) return false;
+            $info = Wechat::getUserInfoByAccessToken($app->access_token, $app->openid);
+            Yii::$app->redis->set($code, $info, 30);
+        }else{
+            $info = Yii::$app->redis->get($code);
+        }
+        $info = json_decode($info);
         var_dump($info);
         echo '名称：' . $info->nickname . '<\br>' . '性别' . $info->sex == 1 ? '男' : '女';
     }

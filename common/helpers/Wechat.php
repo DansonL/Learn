@@ -209,7 +209,7 @@ class Wechat{
     public static function getUserInfoByAccessToken($accessToken, $openId){
         $json = file_get_contents('https://api.weixin.qq.com/sns/userinfo?access_token=' . $accessToken . '&openid=' . $openId . '&lang=zh_CN');
         Yii::trace($json);
-        return json_decode($json);
+        return $json;
     }
 
     /**
