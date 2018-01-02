@@ -21,6 +21,8 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
+        var_dump(Yii::$app->redis->get('etetstsdsdf'));
+        exit;
 
         return $this->render('index');
     }
@@ -83,12 +85,10 @@ class DefaultController extends Controller
      */
     public function actionAuthResponse($code = 0, $state = 'fail'){
         if ($state == 'fail') return false;
-        if (Yii::$app->redis->get($code) === false){
+        if (Yii::$app->redis->get($code) === NULL){
             $app = Wechat::getAccessByCode($code);
-            Yii::trace($app);
             if (!$app) return false;
             $info = Wechat::getUserInfoByAccessToken($app->access_token, $app->openid);
-            Yii::trace($info);
             Yii::$app->redis->set($code, $info, 30000);
         }else{
             $info = Yii::$app->redis->get($code);
