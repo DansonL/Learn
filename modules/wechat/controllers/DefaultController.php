@@ -87,6 +87,15 @@ class DefaultController extends Controller
         $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $wechatConf->appId . '&secret=' . $wechatConf->appsecret . '&code=' . $code . '&grant_type=authorization_code';
         $json = file_get_contents($url);
         Yii::trace($json);
+        $app = json_decode($json);
+        if (isset($app->errcode)) return false;
+        $info = $this->_getUserInfo($app->access_token, $app->openid);
 
+    }
+
+    private function _getUserInfo($accessToken, $openId){
+        $json = file_get_contents('https://api.weixin.qq.com/sns/userinfo?access_token=' . $accessToken . '&openid=' . $openId . '&lang=zh_CN');
+        Yii::trace($json);
+        return json_decode($json);
     }
 }
