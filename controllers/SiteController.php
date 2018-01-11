@@ -63,6 +63,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        set_time_limit(0);
+        while (true){
+            file_get_contents('http://wechat.ldc0752.top/wechat/default/test-count');
+        }
         return $this->render('index');
     }
 
@@ -116,6 +120,16 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionUpload(){
+        var_dump(Wechat::upload('./images/test.jpg'));
+    }
+
+    public function actionDownload(){{
+        Wechat::download('vwqycCDLMAnJ3JzM6jygYlbN5UZUDgZyHgHfnR5V016qcm0XRZvry06_PWsiratm2');
+        $content = file_get_contents('http://avatar.csdn.net/D/4/2/1_ljfrocky.jpg');
+        var_dump($http_response_header);exit;
+        file_put_contents('avatar.jpg', $content);
+    }}
     /**
      * Displays about page.
      *

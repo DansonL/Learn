@@ -132,6 +132,59 @@ class Wechat{
 
     }
 
+    public static function download($mediaId, $mediaType = 'normal'){
+        $url = 'http://';
+        if ($mediaType == 'normal') $url = 'https://';
+        $accessToken = Wechat::getAccessToken();
+        $url .= 'api.weixin.qq.com/cgi-bin/media/get?access_token=' . $accessToken . '&media_id=' . $mediaId;
+        $file = file_get_contents($url);
+        if (json_decode($file))
+        var_dump($http_response_header);exit;
+    }
+
+    /**
+     * 上传素材
+     * $type 的取值为 图片（image）: 2M，支持PNG\JPEG\JPG\GIF格式
+     * 语音（voice）：2M，播放长度不超过60s，支持AMR\MP3格式
+     * 视频（video）：10MB，支持MP4格式
+     * 缩略图（thumb）：64KB，支持JPG格式
+     * @param $file 文件路径
+     * @param string $type
+     * @return mixed
+     */
+    public static function upload($file, $type = 'image'){
+        $accessToken = Wechat::getAccessToken();
+        $url ='http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token='.$accessToken.'&type=' . $type;
+        $data['media'] = new \CURLFile($file);
+        $result = Wechat::curl_post($url,$data);
+        return json_decode($result,true);
+    }
+
+    /**
+     * POST发送数据
+     * @param $url
+     * @param null $data
+     * @return mixed
+     */
+    private function curl_post($url, $data = null)
+    {
+        //创建一个新cURL资源
+        $curl = curl_init();
+        //设置URL和相应的选项
+        curl_setopt($curl, CURLOPT_URL, $url);
+        if (!empty($data)){
+            curl_setopt($curl, CURLOPT_POST, 1);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        }
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        //执行curl，抓取URL并把它传递给浏览器
+        $output = curl_exec($curl);
+        //关闭cURL资源，并且释放系统资源
+        curl_close($curl);
+        return $output;
+    }
+
+
     private function _msgText($to, $from, $content) {
         $res = sprintf($this->_msg_template['text'], $to, $from, time(), $content);
         Yii::trace($res);
