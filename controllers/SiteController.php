@@ -63,10 +63,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        set_time_limit(0);
-        while (true){
-            file_get_contents('http://wechat.ldc0752.top/wechat/default/test-count');
-        }
+        
         return $this->render('index');
     }
 
