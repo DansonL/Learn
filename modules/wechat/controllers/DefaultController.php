@@ -21,9 +21,9 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
-        $json = '{"openid":"o8JwBw5OSKLLiI3gz9TPyrJHnZH4","nickname":"Danson","sex":1,"language":"en","city":"惠州","province":"广东","country":"中国","headimgurl":"http:\/\/wx.qlogo.cn\/mmopen\/vi_32\/Q0j4TwGTfTLRkUBx9scO4UDwB1yEYA8PhbiaibicXPKHFaahE2kicUl4zcpG7Dq2MwOicPGzJct5ELYIBKoFXicwxsZA\/0","privilege":[]}';
-        $info = json_decode($json);
-        var_dump($info);exit;
+//        $json = '{"openid":"o8JwBw5OSKLLiI3gz9TPyrJHnZH4","nickname":"Danson","sex":1,"language":"en","city":"惠州","province":"广东","country":"中国","headimgurl":"http:\/\/wx.qlogo.cn\/mmopen\/vi_32\/Q0j4TwGTfTLRkUBx9scO4UDwB1yEYA8PhbiaibicXPKHFaahE2kicUl4zcpG7Dq2MwOicPGzJct5ELYIBKoFXicwxsZA\/0","privilege":[]}';
+//        $info = json_decode($json);
+//        var_dump($info);exit;
 
 
 
