@@ -86,7 +86,7 @@ class SiteController extends Controller
     }
 
     protected function voidtest() : void{
-        sleep(10);
+        sleep(3);
     }
 
     /**
