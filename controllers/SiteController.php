@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\common\helpers\Wechat;
+use app\redis_lock;
 
 class SiteController extends Controller
 {
@@ -63,8 +64,29 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        
         return $this->render('index');
+    }
+
+    public function actionRead(){
+        $disk_lock = new redis_lock\RedisLock();
+        $lock_key = 'testLock';
+        $lock = $disk_lock->lock($lock_key);
+        if (!$lock) return '锁住了！！！！';
+        $tmp = [];
+        for ($i = 0; $i< 1000000; $i++){
+            $tmp[] = rand(0,100);
+        }
+        $sum = 0;
+        foreach ($tmp as $val){
+            $sum += $val;
+        }
+        var_dump($sum);
+        $this->voidtest();
+        $disk_lock->unlock($lock_key);
+    }
+
+    protected function voidtest() : void{
+        sleep(10);
     }
 
     /**
