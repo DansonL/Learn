@@ -226,8 +226,14 @@ class SiteController extends Controller
         );
         $status = Wechat::setMenu($menu);
         var_dump($status);exit;
+    }
 
+    public function actionTest(){
+        $identity = Yii::$app->user->identity;
+        var_dump($identity->password_hash);exit;
+    }
 
-
+    public function actionRbac(){
+        
     }
 }
