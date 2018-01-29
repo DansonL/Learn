@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models_ext\SiteConfigExt;
 use Yii;
+use yii\base\Exception;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -228,11 +229,7 @@ class SiteController extends Controller
         var_dump($status);exit;
     }
 
-    public function actionTest(){
-        echo $_SERVER['REMOTE_ADDR'] . "\n";
-    }
-
     public function actionRbac(){
-
+        
     }
 }
