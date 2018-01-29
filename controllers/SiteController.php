@@ -229,7 +229,7 @@ class SiteController extends Controller
     }
 
     public function actionTest(){
-        var_dump($_SERVER['REMOTE_ADDR']);
+        echo $_SERVER['REMOTE_ADDR'] . "\n";
     }
 
     public function actionRbac(){
