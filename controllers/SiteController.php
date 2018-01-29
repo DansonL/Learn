@@ -229,11 +229,10 @@ class SiteController extends Controller
     }
 
     public function actionTest(){
-        $identity = Yii::$app->user->identity;
-        var_dump($identity->password_hash);exit;
+        var_dump($_SERVER['REMOTE_ADDR']);
     }
 
     public function actionRbac(){
-        
+
     }
 }
