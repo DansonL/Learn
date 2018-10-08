@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use app\common\task\DownloadJob;
 use app\models_ext\SiteConfigExt;
+use app\models_ext\UserExt;
 use Yii;
 use yii\base\Exception;
 use yii\filters\AccessControl;
@@ -66,6 +68,22 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionTest()
+    {
+        $request = Yii::$app->request;
+        $id = $request->get('id', 0);
+//        $user = new UserExt();
+//        $user->username = 'admin' . $id;
+//        $user->save(false);
+
+
+        Yii::$app->queue->delay(5)->push(new DownloadJob([
+                'id' => $id
+            ])
+        );
+        echo 'test';
     }
 
     public function actionRead(){

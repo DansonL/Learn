@@ -26,7 +26,8 @@
         "hightman/xunsearch": "*@beta",
         "yiisoft/yii2-redis": "^2.0",
         "dmstr/yii2-adminlte-asset": "^2.1",
-        "yiisoft/yii2-httpclient": "^2.0"
+        "yiisoft/yii2-httpclient": "^2.0",
+        "yiisoft/yii2-queue": "^2.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

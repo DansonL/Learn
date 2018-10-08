@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models_ext\SiteConfigExt;
 use Yii;
 use yii\web\Controller;
 
@@ -16,6 +17,14 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $config = new SiteConfigExt();
+        $config->config_name = 'test';
+        $config->config_value = ['test'];
+        var_dump($config->save(false));
+    }
+
+    public function actionTest()
+    {
+        var_dump(Yii::$aliases);exit;
     }
 }

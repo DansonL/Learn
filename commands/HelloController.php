@@ -7,6 +7,9 @@
 
 namespace app\commands;
 
+use app\models_ext\ContentExt;
+use Faker\Factory;
+use Yii;
 use yii\console\Controller;
 
 /**
@@ -23,6 +26,8 @@ class HelloController extends Controller
      * This command echoes what you have entered as the message.
      * @param string $message the message to be echoed.
      */
+
+
     public function actionIndex($message = 'hello world')
     {
         set_time_limit(0);
@@ -74,5 +79,22 @@ class HelloController extends Controller
             curl_multi_remove_handle($mh, $conn[$i]);
         }
         curl_multi_close($mh);
+    }
+
+    public function actionFake($test)
+    {
+//        global $argv;
+//        $fake = Factory::create();
+//        echo $fake->name . PHP_EOL;
+//        echo $fake->address . PHP_EOL;
+//        echo $fake->text . PHP_EOL;
+//        echo $fake->sentence(7) . PHP_EOL;
+//        echo $fake->url . PHP_EOL;
+//        var_dump($argv);
+        //echo PHP_EOL . Yii::getAlias('@tests/unit/templates/fixtures') . PHP_EOL;
+        $content = ContentExt::findOne(['id' => 6]);
+        $content->title += 1;
+        $content->save(false);
+        $this->stdout('done' . PHP_EOL);
     }
 }
